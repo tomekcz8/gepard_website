@@ -1,0 +1,492 @@
+@use 'colors' as *;
+@use 'components' as *;
+
+*,
+*::after,
+*::before {
+	box-sizing: border-box;
+	margin: 0;
+	padding: 0;
+}
+
+html {
+	font-size: 62.5%;
+	scroll-behavior: smooth;
+}
+
+body {
+	font-family: 'Montserrat', sans-serif;
+	font-size: 1.6rem;
+}
+
+// NAVIGATION
+
+.burger-btn {
+	position: fixed;
+	top: 20px;
+	right: 20px;
+	padding: 1em;
+	background: none;
+	border: 1px solid transparent;
+	cursor: pointer;
+	z-index: 1000;
+
+	&:focus {
+		outline: none;
+		border: 1px solid rgba(255, 255, 255, 0.5);
+		border-radius: 8px;
+	}
+
+	&:hover {
+		.burger-btn__bars::after,
+		.burger-btn__bars::before {
+			width: 100%;
+		}
+	}
+
+	&__box {
+		position: relative;
+		width: 40px;
+		height: 30px;
+	}
+
+	&__bars,
+	&__bars::after,
+	&__bars::before {
+		position: absolute;
+		right: 0;
+		height: 3px;
+		content: '';
+		background-color: $textColor;
+		transition: width 0.3s;
+	}
+
+	&__bars {
+		width: 100%;
+
+		&::after {
+			top: 13px;
+			width: 60%;
+		}
+		&::before {
+			top: 27px;
+			width: 30%;
+			transition-delay: 0.1s;
+		}
+	}
+}
+
+.nav {
+	position: fixed;
+	top: 0;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	height: 100vh;
+	width: 100%;
+	background-color: $bgColor;
+	transform: translateX(100%);
+	transition: transform 0.3s;
+	z-index: 2;
+
+	&--active {
+		transform: translateX(0);
+	}
+
+	&__item {
+		position: relative;
+		display: block;
+		color: $textColor;
+		margin: 1.5em 0;
+		padding-bottom: 0.5em;
+		font-size: 2.8rem;
+		text-decoration: none;
+
+		&::after {
+			position: absolute;
+			left: 0;
+			bottom: 0;
+			width: 100%;
+			height: 3px;
+			background-color: $textColor;
+			transform: scaleX(0);
+			transform-origin: right;
+			transition: transform 0.3s;
+			content: '';
+		}
+
+		&:hover::after {
+			transform: scaleX(1);
+			transform-origin: left;
+		}
+	}
+}
+@keyframes navAnimation {
+	from {
+		transform: translateY(200%);
+	}
+	to {
+		transform: translateY(0);
+	}
+}
+.nav-items-animation {
+	animation: navAnimation 1s both;
+}
+
+//HEADER
+.header {
+	position: relative;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	flex-direction: column;
+	padding: 2em;
+	height: 100vh;
+	text-align: center;
+	color: $textColor;
+	background-image: url('/MMC_SCHOOL/skp__gepard/img/tlo2.png');
+	background-size: cover;
+	background-position: center;
+	background-attachment: scroll;
+
+	&__heading {
+		font-size: 4.8rem;
+		font-weight: 700;
+	}
+
+	&__text {
+		font-size: 2rem;
+	}
+
+	&__btn {
+		margin-top: 2em;
+		padding: 0.8em 1.6em;
+		font-size: 1.7rem;
+		background-color: $bgColor;
+		border: none;
+		border-radius: 8px;
+		text-decoration: none;
+		color: $textColor;
+		text-transform: uppercase;
+		cursor: pointer;
+
+		&::before {
+			background-color: $btnSecondColor;
+		}
+	}
+}
+.second-bars-color,
+.second-bars-color::after,
+.second-bars-color::before {
+	background-color: $bgColor;
+}
+//OFFERS
+
+.offers {
+	&__icons {
+		display: flex;
+		flex-direction: column;
+		justify-content: center;
+		align-items: center;
+		flex-wrap: wrap;
+	}
+	&__icon-box {
+		text-align: center;
+		margin: 1.5em 2em;
+		width: 40%;
+
+		p {
+			text-transform: uppercase;
+			font-weight: 600;
+			font-size: 2rem;
+		}
+	}
+
+	&__icon-box:hover {
+		transform: scale(1.1);
+	}
+
+	&__icon-img {
+		width: 80px;
+	}
+}
+
+//ABOU US
+
+.aboutus {
+	background-color: $textColor;
+	&__box-img {
+		width: 100%;
+		height: 40vh;
+		position: relative;
+		overflow: hidden;
+	}
+
+	&__img {
+		position: absolute;
+		top: 0;
+		left: 0;
+		width: 100%;
+		height: 100%;
+		opacity: 0;
+		animation: carousel 15s infinite;
+		object-fit: cover;
+		border-radius: 10px;
+	}
+
+	&__title {
+		margin: 2em 0;
+		text-align: center;
+		color: $bgColor;
+	}
+
+	&__text {
+		text-align: justify;
+		letter-spacing: 1px;
+		line-height: 1.5em;
+		font-size: 2rem;
+		margin-bottom: 2em;
+
+		span {
+			font-weight: bold;
+		}
+	}
+
+	&__img:nth-of-type(1) {
+		animation-delay: 5s;
+	}
+
+	&__img:nth-of-type(2) {
+		animation-delay: 10s;
+	}
+}
+
+@keyframes carousel {
+	0% {
+		opacity: 1;
+	}
+	17% {
+		opacity: 1;
+	}
+	25% {
+		opacity: 0;
+	}
+	92% {
+		opacity: 0;
+	}
+	100% {
+		opacity: 1;
+	}
+}
+
+//PRICES
+.prices {
+	&__text {
+		padding-bottom: 1.5em;
+		font-size: 2rem;
+		letter-spacing: 1px;
+		line-height: 1.5em;
+		text-align: justify;
+		display: flex;
+		justify-content: center;
+	}
+	table {
+		width: 100%;
+		border-collapse: collapse;
+		margin-bottom: 5em;
+
+		thead {
+			background-color: $bgColor;
+			color: $textColor;
+		}
+		th,
+		td {
+			border: 1px solid $textColor;
+			padding: 8px;
+			text-align: left;
+		}
+
+		tr:nth-child(even) {
+			background-color: $textColor;
+		}
+		caption {
+			caption-side: bottom;
+		}
+	}
+	&__link {
+		font-size: 1.5rem;
+		letter-spacing: 1px;
+		line-height: 1.5em;
+		text-align: left;
+		margin-top: 1em;
+
+		a {
+			padding: 0.3em 0.5em;
+			font-weight: bold;
+			text-decoration: none;
+			text-transform: uppercase;
+			color: $bgColor;
+			transition: background-color 0.3s, color 0.3s;
+		}
+		a:hover {
+			background-color: $btnSecondColor;
+			color: $textColor;
+		}
+	}
+}
+
+//CONTACT
+.contact {
+	background-color: $textColor;
+	&__box {
+		display: flex;
+		text-align: center;
+		flex-direction: column;
+	}
+	&__info {
+		padding-bottom: 10em;
+	}
+	&__title {
+		font-size: 2rem;
+		letter-spacing: 1px;
+	}
+	&__number {
+		margin: 2em;
+		padding: 1em 2em;
+		font-size: 2rem;
+		background-color: $bgColor;
+		color: $textColor;
+		font-weight: bold;
+		border-radius: 5px;
+		border: none;
+
+		&::before {
+			background-color: $btnSecondColor;
+		}
+	}
+	&__text {
+		margin-bottom: 1em;
+		text-transform: uppercase;
+		font-size: 2.3rem;
+		letter-spacing: 1px;
+		font-weight: 700;
+		color: $bgColor;
+	}
+	iframe {
+		margin-top: 2.5em;
+		width: 100%;
+		height: 60vh;
+		border-radius: 10px;
+		border: none;
+	}
+}
+
+// FOOTER
+.footer {
+	&__bottom-text {
+		padding: 1em 0;
+		text-align: center;
+		font-size: 1.5rem;
+	}
+}
+// MEDIA
+@media (min-width: 576px) {
+	.offers {
+		&__icons {
+			flex-direction: row;
+		}
+	}
+}
+@media (min-width: 768px) {
+	.header {
+		&__heading {
+			font-size: 6.6rem;
+		}
+		&__text {
+			font-size: 2.2rem;
+		}
+		&__btn {
+			font-size: 1.6rem;
+		}
+	}
+	.contact {
+		&__title {
+			font-size: 2.4rem;
+		}
+	}
+
+	@media (min-width: 992px) {
+		.burger-btn {
+			top: 50px;
+			right: 50px;
+		}
+		.header {
+			&__heading {
+				font-size: 10rem;
+			}
+			&__btn {
+				font-size: 2rem;
+			}
+		}
+
+		.aboutus {
+			.wrapper {
+				max-width: 90vw;
+			}
+			.section-heading {
+				margin-bottom: 0.3em;
+			}
+			&__box {
+				display: flex;
+				align-items: center;
+			}
+
+			&__box-text {
+				width: 50%;
+			}
+			&__text {
+				font-size: 1.5rem;
+			}
+			&__box-img {
+				margin-right: 5em;
+				width: 50%;
+				height: 45vh;
+			}
+		}
+
+		.offers {
+			&__icons {
+				flex-wrap: nowrap;
+			}
+		}
+
+		.prices {
+			&__tabel {
+				max-width: 1200px;
+				margin: 0 auto;
+			}
+		}
+
+		.contact {
+			&__box {
+				display: flex;
+				flex-direction: row;
+				justify-content: space-around;
+				align-items: center;
+			}
+		
+			&__map {
+				width: 50%;
+			}
+			&__title {
+				font-size: 2.6rem;
+			}
+			&__number {
+				font-size: 2.7rem;
+			}
+			&__text {
+				font-size: 2.5rem;
+			}
+		}
+	}
+}
